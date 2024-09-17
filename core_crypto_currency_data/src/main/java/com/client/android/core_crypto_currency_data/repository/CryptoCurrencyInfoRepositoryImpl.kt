@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class CryptoCurrencyInfoRepositoryImpl @Inject constructor(
+internal class CryptoCurrencyInfoRepositoryImpl @Inject constructor(
     private val context: Context,
     private val cryptoCurrencyInfoApi: CryptoCurrencyInfoApi
 ) : CryptoCurrencyInfoRepository {
