@@ -26,4 +26,6 @@ dependencies {
 
     implementation(project(":common_ui"))
     implementation(project(":navigation"))
+    implementation(project(":core_crypto_currency_data"))
+    implementation(project(":core_base"))
 }

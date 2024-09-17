@@ -23,3 +23,5 @@ rootProject.name = "crypto_currency_info_app"
 include(":app")
 include(":common_ui")
 include(":navigation")
+include(":core_base")
+include(":core_crypto_currency_data")
