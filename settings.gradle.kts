@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "crypto_currency_info_app"
 include(":app")
- 
+include(":common_ui")
