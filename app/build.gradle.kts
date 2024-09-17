@@ -29,4 +29,6 @@ dependencies {
     implementation(project(":core_crypto_currency_data"))
     implementation(project(":core_crypto_currency_domain"))
     implementation(project(":core_base"))
+    implementation(project(":feature_base"))
+    implementation(project(":feature_crypto_currency_list"))
 }

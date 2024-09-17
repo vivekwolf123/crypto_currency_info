@@ -6,7 +6,8 @@ enum class ErrorType(val code: Int) {
     NO_INTERNET(-1),
     UNKNOWN_ERROR(-2),
     CRYPTO_CURRENCY_INFO_LIST_ERROR(-3),
-    CRYPTO_CURRENCY_INFO_DETAILS_ERROR(-4);
+    CRYPTO_CURRENCY_INFO_LIST_EMPTY_ERROR(-4),
+    CRYPTO_CURRENCY_INFO_DETAILS_ERROR(-5);
 
     companion object {
         private val types = entries.associateBy { it.code }
