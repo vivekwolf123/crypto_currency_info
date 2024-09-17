@@ -25,4 +25,5 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     implementation(project(":common_ui"))
+    implementation(project(":navigation"))
 }
