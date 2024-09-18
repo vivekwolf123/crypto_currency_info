@@ -8,6 +8,9 @@ import com.client.android.feature_base.Reducer
 @Immutable
 sealed class CryptoCurrencyListViewEvent : Reducer.ViewEvent {
     data object GetTopCryptoCurrencyList : CryptoCurrencyListViewEvent()
-    data class OnTopCryptoCurrencyListFetched(val cryptoCurrenciesInfoDataModel: CryptoCurrenciesInfoDataModel) : CryptoCurrencyListViewEvent()
-    data class OnTopCryptoCurrencyListFetchError(val error: ErrorType) : CryptoCurrencyListViewEvent()
+    data class OnTopCryptoCurrencyListFetched(val cryptoCurrenciesInfoDataModel: CryptoCurrenciesInfoDataModel) :
+        CryptoCurrencyListViewEvent()
+
+    data class OnTopCryptoCurrencyListFetchError(val error: ErrorType) :
+        CryptoCurrencyListViewEvent()
 }

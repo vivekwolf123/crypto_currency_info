@@ -8,6 +8,7 @@ import com.client.android.core_crypto_currency_domain.model.CryptoCurrenciesInfo
 import com.client.android.core_crypto_currency_domain.model.InfoDataModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.Locale
 import javax.inject.Inject
 
 class GetTopCryptoCurrenciesInfoUseCase @Inject constructor(
@@ -40,9 +41,17 @@ class GetTopCryptoCurrenciesInfoUseCase @Inject constructor(
                     symbol = data.symbol,
                     name = data.name,
                     priceUsd = formatDecimalUseCase.invoke(data.priceUsd),
-                    changePercent24Hr = data.changePercent24Hr
+                    changePercent24Hr = roundChangePercent24HrToTwoDecimalPlaces(data.changePercent24Hr)
                 )
             }
         )
+    }
+
+    private fun roundChangePercent24HrToTwoDecimalPlaces(input: String): String {
+        return try {
+            String.format(Locale.getDefault(), "%.2f", input.toDoubleOrNull())
+        } catch (_: Exception) {
+            input
+        }
     }
 }

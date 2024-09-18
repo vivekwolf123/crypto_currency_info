@@ -53,7 +53,8 @@ fun CryptoCurrencyListScreen(
     CryptoCurrencyList(
         loading = viewState.value.loading,
         error = viewState.value.error,
-        topCryptoCurrencyInfoList = viewState.value.cryptoCurrenciesInfoDataModel?.data ?: emptyList(),
+        topCryptoCurrencyInfoList = viewState.value.cryptoCurrenciesInfoDataModel?.data
+            ?: emptyList(),
         onItemClicked = { item ->
             // Handle item click here, you can use navHostController to navigate
         }
@@ -78,27 +79,28 @@ private fun CryptoCurrencyList(
             })
         }
     ) { paddingValues ->
-        if (loading) {
-            AppProgressBar(modifier = Modifier.padding(paddingValues))
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize()
-            ) {
-                items(topCryptoCurrencyInfoList, key = { item -> item.id }) { item ->
-                    CryptoCurrencyListItem(
-                        name = item.name,
-                        symbol = item.symbol,
-                        price = item.priceUsd,
-                        changePercent = item.changePercent24Hr,
-                        changeColor = if (item.changePercent24Hr.startsWith("-")) Color.Red else Color.Green,
-                    )
-                }
-            }
-        }
         if (error != null) {
             ShowError(errorType = error)
+        } else {
+            if (loading) {
+                AppProgressBar(modifier = Modifier.padding(paddingValues))
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize()
+                ) {
+                    items(topCryptoCurrencyInfoList, key = { item -> item.id }) { item ->
+                        CryptoCurrencyListItem(
+                            name = item.name,
+                            symbol = item.symbol,
+                            price = "$" + item.priceUsd,
+                            changePercent = item.changePercent24Hr + "%",
+                            changeColor = if (item.changePercent24Hr.startsWith("-")) Color.Red else Color.Green,
+                        )
+                    }
+                }
+            }
         }
     }
 }

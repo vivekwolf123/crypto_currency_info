@@ -21,20 +21,20 @@ internal class CryptoCurrencyInfoRepositoryImpl @Inject constructor(
     private val apiCallDelayMillis = 60000L
 
     override suspend fun getTopCryptoCurrencies() = flow {
-        if (context.isInternetAvailableOnPhone()) {
-            val response = cryptoCurrencyInfoApi.fetchTopCryptoCurrenciesInfo(topCryptoCurrenciesCount)
-            if (response.isSuccessful) {
-                response.body()?.let { cryptoCurrencyInfo ->
-                    repeat(Int.MAX_VALUE) {
+        repeat(Int.MAX_VALUE) {
+            if (context.isInternetAvailableOnPhone()) {
+                val response = cryptoCurrencyInfoApi.fetchTopCryptoCurrenciesInfo(topCryptoCurrenciesCount)
+                if (response.isSuccessful) {
+                    response.body()?.let { cryptoCurrencyInfo ->
                         emit(AppResult.Success(cryptoCurrencyInfo))
-                        delay(apiCallDelayMillis)
-                    }
-                } ?: emit(AppResult.Error(ErrorType.CRYPTO_CURRENCY_INFO_LIST_ERROR))
+                    } ?: emit(AppResult.Error(ErrorType.CRYPTO_CURRENCY_INFO_LIST_ERROR))
+                } else {
+                    emit(AppResult.Error(handleErrorCode(response.code())))
+                }
             } else {
-                emit(AppResult.Error(handleErrorCode(response.code())))
+                emit(AppResult.Error(ErrorType.NO_INTERNET))
             }
-        } else {
-            emit(AppResult.Error(ErrorType.NO_INTERNET))
+            delay(apiCallDelayMillis)
         }
     }.catch {
         emit(AppResult.Error(ErrorType.UNKNOWN_ERROR))
