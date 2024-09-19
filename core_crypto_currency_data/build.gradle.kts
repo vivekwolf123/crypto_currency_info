@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":core_base"))
+    implementation(project(":common_utils"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)

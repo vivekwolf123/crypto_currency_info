@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">CryptoCurrencyInfo</string>
     <string name="crypto_currency_list_screen_title">COINS</string>
+    <string name="crypto_currency_details_screen_title">DETAILS</string>
     <string name="no_internet">No Internet Connection</string>
     <string name="crypto_currency_list_empty">No Crypto Currency Info</string>
 </resources>

@@ -1,9 +1,9 @@
 package com.client.android.core_crypto_currency_data.repository
 
 import android.content.Context
+import com.client.android.common_utils.ErrorType
 import com.client.android.core_base.AppResult
-import com.client.android.core_base.ErrorType
-import com.client.android.core_base.ErrorType.Companion.handleErrorCode
+import com.client.android.common_utils.ErrorType.Companion.handleErrorCode
 import com.client.android.core_crypto_currency_data.CryptoCurrencyDataRepository
 import com.client.android.core_crypto_currency_data.api.CryptoCurrencyDataApi
 import com.client.android.core_crypto_currency_data.cache.CryptoCurrencyDataDao
@@ -45,14 +45,14 @@ internal class CryptoCurrencyDataRepositoryImpl @Inject constructor(
         emit(AppResult.Error(ErrorType.UNKNOWN_ERROR))
     }
 
-    override suspend fun getCryptoCurrencyDetails(id: String) = flow {
+    override suspend fun getCryptoCurrencyDetails(cryptoCurrencyDetailsId: String) = flow {
         if (context.isInternetAvailableOnPhone()) {
-            val cryptoCurrencyInfoDetailsFromCache = cryptoCurrencyDataDao.getCryptoCurrencyInfoDataFromCache(id)
+            val cryptoCurrencyInfoDetailsFromCache = cryptoCurrencyDataDao.getCryptoCurrencyInfoDataFromCache(cryptoCurrencyDetailsId)
             if (cryptoCurrencyInfoDetailsFromCache != null) {
                 emit(AppResult.Success(CryptoCurrencyDetailsDataEntity(cryptoCurrencyInfoDetailsFromCache)))
             }
             val response =
-                cryptoCurrencyDataApi.fetchCryptoCurrencyDetailsInfo(id)
+                cryptoCurrencyDataApi.fetchCryptoCurrencyDetailsInfo(cryptoCurrencyDetailsId)
             if (response.isSuccessful) {
                 response.body()?.let { cryptoCurrencyDetailsInfo ->
                     emit(AppResult.Success(cryptoCurrencyDetailsInfo))

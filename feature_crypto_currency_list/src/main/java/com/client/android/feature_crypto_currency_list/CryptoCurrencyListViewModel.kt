@@ -2,7 +2,7 @@ package com.client.android.feature_crypto_currency_list
 
 import androidx.lifecycle.viewModelScope
 import com.client.android.core_base.AppResult
-import com.client.android.core_base.ErrorType
+import com.client.android.common_utils.ErrorType
 import com.client.android.core_crypto_currency_domain.usecase.GetTopCryptoCurrenciesUseCase
 import com.client.android.feature_base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +23,7 @@ class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCu
             getTopCryptoCurrenciesUseCase.invoke().onStart {
                 sendEvent(CryptoCurrencyListViewEvent.GetTopCryptoCurrencyList)
             }.catch {
-                sendEvent(CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchError(error = ErrorType.UNKNOWN_ERROR))
+                sendEvent(CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchError(error = com.client.android.common_utils.ErrorType.UNKNOWN_ERROR))
             }.collect {
                 when (it) {
                     is AppResult.Success -> {
@@ -36,7 +36,7 @@ class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCu
                         } else {
                             sendEvent(
                                 CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchError(
-                                    error = ErrorType.CRYPTO_CURRENCY_INFO_LIST_EMPTY_ERROR
+                                    error = com.client.android.common_utils.ErrorType.CRYPTO_CURRENCY_INFO_LIST_EMPTY_ERROR
                                 )
                             )
                         }

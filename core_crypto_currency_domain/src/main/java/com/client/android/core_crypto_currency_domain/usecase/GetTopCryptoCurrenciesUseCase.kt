@@ -1,14 +1,14 @@
 package com.client.android.core_crypto_currency_domain.usecase
 
 import com.client.android.core_base.AppResult
-import com.client.android.core_base.ErrorType
+import com.client.android.common_utils.ErrorType
+import com.client.android.common_utils.roundChangePercent24HrToTwoDecimalPlaces
 import com.client.android.core_crypto_currency_data.CryptoCurrencyDataRepository
 import com.client.android.core_crypto_currency_data.entity.CryptoCurrenciesDataEntity
 import com.client.android.core_crypto_currency_domain.model.CryptoCurrenciesModel
 import com.client.android.core_crypto_currency_domain.model.CryptoCurrencyModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.Locale
 import javax.inject.Inject
 
 class GetTopCryptoCurrenciesUseCase @Inject constructor(
@@ -41,18 +41,10 @@ class GetTopCryptoCurrenciesUseCase @Inject constructor(
                     symbol = data.symbol,
                     name = data.name,
                     priceUsd = formatDecimalUseCase.invoke(data.priceUsd),
-                    changePercent24Hr = roundChangePercent24HrToTwoDecimalPlaces(data.changePercent24Hr),
+                    changePercent24Hr = data.changePercent24Hr.roundChangePercent24HrToTwoDecimalPlaces(),
                     supply = data.supply
                 )
             }
         )
-    }
-
-    private fun roundChangePercent24HrToTwoDecimalPlaces(input: String): String {
-        return try {
-            String.format(Locale.getDefault(), "%.2f", input.toDoubleOrNull())
-        } catch (_: Exception) {
-            input
-        }
     }
 }

@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -25,11 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.client.android.common_ui.DisplayFullScreenError
 import com.client.android.common_ui.components.AppProgressBar
 import com.client.android.common_ui.components.AppText
 import com.client.android.common_ui.typography
-import com.client.android.core_base.ErrorType
-import com.client.android.core_crypto_currency_domain.model.CryptoCurrencyInfoDataModel
+import com.client.android.common_utils.ErrorType
+import com.client.android.core_crypto_currency_domain.model.CryptoCurrencyModel
+import com.client.android.navigation.AppRouter
 
 @Composable
 fun CryptoCurrencyListScreen(
@@ -55,7 +57,11 @@ fun CryptoCurrencyListScreen(
         topCryptoCurrencyInfoList = viewState.value.cryptoCurrenciesModel?.data
             ?: emptyList(),
         onItemClicked = { item ->
-            // Handle item click here, you can use navHostController to navigate
+            navHostController.navigate(
+                AppRouter.CryptoCurrencyDetailsScreen.navigateToCryptoCurrencyDetailsScreen(
+                    item.id
+                )
+            )
         }
     )
 }
@@ -65,8 +71,8 @@ fun CryptoCurrencyListScreen(
 private fun CryptoCurrencyList(
     loading: Boolean,
     error: ErrorType?,
-    topCryptoCurrencyInfoList: List<CryptoCurrencyInfoDataModel>,
-    onItemClicked: (CryptoCurrencyInfoDataModel) -> Unit,
+    topCryptoCurrencyInfoList: List<CryptoCurrencyModel>,
+    onItemClicked: (CryptoCurrencyModel) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -79,7 +85,7 @@ private fun CryptoCurrencyList(
         }
     ) { paddingValues ->
         if (error != null) {
-            ShowError(errorType = error)
+            DisplayFullScreenError(errorType = error)
         } else {
             if (loading) {
                 AppProgressBar(modifier = Modifier.padding(paddingValues))
@@ -96,6 +102,7 @@ private fun CryptoCurrencyList(
                             price = "$" + item.priceUsd,
                             changePercent = item.changePercent24Hr + "%",
                             changeColor = if (item.changePercent24Hr.startsWith("-")) Color.Red else Color.Green,
+                            onItemClicked = onItemClicked
                         )
                     }
                 }
@@ -111,6 +118,7 @@ private fun CryptoCurrencyListItem(
     price: String,
     changePercent: String,
     changeColor: Color,
+    onItemClicked: (CryptoCurrencyModel) -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -118,7 +126,7 @@ private fun CryptoCurrencyListItem(
             .padding(8.dp)
             .background(Color(0xFFE8EAF6), RoundedCornerShape(8.dp))
             .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -146,41 +154,6 @@ private fun CryptoCurrencyListItem(
                 message = changePercent,
                 style = typography.bodyMedium,
                 color = changeColor
-            )
-        }
-    }
-}
-
-@Composable
-private fun ShowError(errorType: ErrorType) {
-    when (errorType) {
-        ErrorType.NO_INTERNET -> {
-            AppText(
-                message = stringResource(id = com.client.android.common_ui.R.string.no_internet),
-                style = typography.bodyLarge,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center)
-            )
-        }
-
-        ErrorType.CRYPTO_CURRENCY_INFO_LIST_EMPTY_ERROR -> {
-            AppText(
-                message = stringResource(id = com.client.android.common_ui.R.string.crypto_currency_list_empty),
-                style = typography.bodyLarge,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center)
-            )
-        }
-
-        else -> {
-            AppText(
-                message = errorType.name,
-                style = typography.bodyLarge,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center)
             )
         }
     }

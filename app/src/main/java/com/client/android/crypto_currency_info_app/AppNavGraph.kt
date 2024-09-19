@@ -21,9 +21,9 @@ fun AppNavGraph(navHostController: NavHostController) {
         }
         composable(
             route = AppRouter.CryptoCurrencyDetailsScreen.route,
-            arguments = listOf(navArgument("id") { type = NavType.StringType })
+            arguments = listOf(navArgument("cryptoCurrencyDetailsId") { type = NavType.StringType })
         ) {
-            CryptoCurrencyDetailsScreen()
+            CryptoCurrencyDetailsScreen(navHostController)
         }
     }
 }

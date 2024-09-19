@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.coil.svg)
     implementation(project(":core_crypto_currency_domain"))
     implementation(project(":feature_base"))
+    implementation(project(":common_utils"))
     implementation(project(":common_ui"))
     implementation(project(":navigation"))
 

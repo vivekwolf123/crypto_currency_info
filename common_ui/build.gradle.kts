@@ -15,4 +15,6 @@ dependencies {
 
     api(libs.compose.material3)
     api(libs.compose.ui)
+
+    implementation(project(":common_utils"))
 }

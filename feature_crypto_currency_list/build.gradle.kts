@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":core_crypto_currency_domain"))
     implementation(project(":feature_base"))
     implementation(project(":common_ui"))
+    implementation(project(":common_utils"))
     implementation(project(":navigation"))
 
     testImplementation(libs.junit)

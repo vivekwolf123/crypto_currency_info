@@ -18,6 +18,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     api(project(":core_base"))
     implementation(project(":core_crypto_currency_data"))
+    implementation(project(":common_utils"))
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
