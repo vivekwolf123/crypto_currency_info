@@ -22,7 +22,8 @@ class CryptoCurrencyDetailsViewModel @Inject constructor(
         reducer = CryptoCurrencyDetailsReducer()
     ) {
 
-    private val cryptoCurrencyDetailsId: String? = savedStateHandle.get<String>("cryptoCurrencyDetailsId")
+    private val cryptoCurrencyDetailsId: String? =
+        savedStateHandle.get<String>("cryptoCurrencyDetailsId")
 
     init {
         viewModelScope.launch {
@@ -33,25 +34,26 @@ class CryptoCurrencyDetailsViewModel @Inject constructor(
                     sendEvent(CryptoCurrencyDetailsViewEvent.GetCryptoCurrencyDetails)
                 }.catch {
                     sendEvent(CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchError(error = ErrorType.UNKNOWN_ERROR))
-                }.collect {
-                    when (it) {
-                        is AppResult.Success -> {
-                            sendEvent(
-                                CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetched(
-                                    cryptoCurrencyModel = it.data
+                }
+                    .collect {
+                        when (it) {
+                            is AppResult.Success -> {
+                                sendEvent(
+                                    CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchedSuccess(
+                                        cryptoCurrencyModel = it.data
+                                    )
                                 )
-                            )
-                        }
+                            }
 
-                        is AppResult.Error -> {
-                            sendEvent(
-                                CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchError(
-                                    error = it.error
+                            is AppResult.Error -> {
+                                sendEvent(
+                                    CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchError(
+                                        error = it.error
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
-                }
             }
         }
     }

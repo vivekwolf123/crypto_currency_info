@@ -14,7 +14,7 @@ class CryptoCurrencyDetailsReducer :
                 state.copy(loading = true) to null
             }
 
-            is CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetched -> {
+            is CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchedSuccess -> {
                 state.copy(
                     loading = false,
                     cryptoCurrencyModel = event.cryptoCurrencyModel

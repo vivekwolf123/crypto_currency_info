@@ -9,5 +9,5 @@ import com.client.android.feature_base.Reducer
 data class CryptoCurrencyDetailsViewState(
     val loading: Boolean = false,
     val cryptoCurrencyModel: CryptoCurrencyModel? = null,
-    val error: com.client.android.common_utils.ErrorType? = null
+    val error: ErrorType? = null
 ) : Reducer.ViewState

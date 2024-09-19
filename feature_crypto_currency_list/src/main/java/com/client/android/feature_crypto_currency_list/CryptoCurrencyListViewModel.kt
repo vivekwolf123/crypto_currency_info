@@ -29,7 +29,7 @@ class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCu
                     is AppResult.Success -> {
                         if (it.data.data.isNotEmpty()) {
                             sendEvent(
-                                CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetched(
+                                CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchSuccess(
                                     cryptoCurrenciesModel = it.data
                                 )
                             )

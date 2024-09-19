@@ -14,7 +14,7 @@ class CryptoCurrencyListReducer :
                 state.copy(loading = true) to null
             }
 
-            is CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetched -> {
+            is CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchSuccess -> {
                 state.copy(
                     loading = false,
                     cryptoCurrenciesModel = event.cryptoCurrenciesModel
