@@ -24,6 +24,12 @@ data class CryptoCurrencyDataEntity(
     @SerializedName("changePercent24Hr")
     val changePercent24Hr: String,
 
+    @SerializedName("marketCapUsd")
+    val marketCapUsd: String,
+
+    @SerializedName("volumeUsd24Hr")
+    val volumeUsd24Hr: String,
+
     @SerializedName("supply")
     val supply: String,
 )

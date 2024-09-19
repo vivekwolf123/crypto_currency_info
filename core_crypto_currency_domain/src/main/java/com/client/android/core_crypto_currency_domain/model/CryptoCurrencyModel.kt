@@ -7,4 +7,6 @@ data class CryptoCurrencyModel(
     val priceUsd: String,
     val changePercent24Hr: String,
     val supply: String,
+    val marketCapUsd: String,
+    val volumeUsd24Hr: String,
 )

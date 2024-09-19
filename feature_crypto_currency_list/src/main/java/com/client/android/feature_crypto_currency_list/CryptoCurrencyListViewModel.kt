@@ -23,7 +23,7 @@ class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCu
             getTopCryptoCurrenciesUseCase.invoke().onStart {
                 sendEvent(CryptoCurrencyListViewEvent.GetTopCryptoCurrencyList)
             }.catch {
-                sendEvent(CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchError(error = com.client.android.common_utils.ErrorType.UNKNOWN_ERROR))
+                sendEvent(CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchError(error = ErrorType.UNKNOWN_ERROR))
             }.collect {
                 when (it) {
                     is AppResult.Success -> {
@@ -36,7 +36,7 @@ class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCu
                         } else {
                             sendEvent(
                                 CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchError(
-                                    error = com.client.android.common_utils.ErrorType.CRYPTO_CURRENCY_INFO_LIST_EMPTY_ERROR
+                                    error = ErrorType.CRYPTO_CURRENCY_INFO_LIST_EMPTY_ERROR
                                 )
                             )
                         }

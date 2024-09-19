@@ -42,7 +42,9 @@ class GetTopCryptoCurrenciesUseCase @Inject constructor(
                     name = data.name,
                     priceUsd = formatDecimalUseCase.invoke(data.priceUsd),
                     changePercent24Hr = data.changePercent24Hr.roundChangePercent24HrToTwoDecimalPlaces(),
-                    supply = data.supply
+                    supply = data.supply,
+                    marketCapUsd = formatDecimalUseCase.invoke(data.marketCapUsd),
+                    volumeUsd24Hr = formatDecimalUseCase.invoke(data.volumeUsd24Hr),
                 )
             }
         )

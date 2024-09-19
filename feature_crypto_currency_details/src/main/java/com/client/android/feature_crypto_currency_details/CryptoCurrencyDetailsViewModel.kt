@@ -27,12 +27,12 @@ class CryptoCurrencyDetailsViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             if (cryptoCurrencyDetailsId.isNullOrEmpty()) {
-                sendEvent(CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchError(error = com.client.android.common_utils.ErrorType.CRYPTO_CURRENCY_INFO_DETAILS_MISSING_ERROR))
+                sendEvent(CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchError(error = ErrorType.CRYPTO_CURRENCY_INFO_DETAILS_MISSING_ERROR))
             } else {
                 getCryptoCurrencyDetailsUseCase.invoke(cryptoCurrencyDetailsId).onStart {
                     sendEvent(CryptoCurrencyDetailsViewEvent.GetCryptoCurrencyDetails)
                 }.catch {
-                    sendEvent(CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchError(error = com.client.android.common_utils.ErrorType.UNKNOWN_ERROR))
+                    sendEvent(CryptoCurrencyDetailsViewEvent.OnCryptoCurrencyDetailsFetchError(error = ErrorType.UNKNOWN_ERROR))
                 }.collect {
                     when (it) {
                         is AppResult.Success -> {

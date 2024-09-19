@@ -40,7 +40,9 @@ class GetCryptoCurrencyDetailsUseCase @Inject constructor(
             name = cryptoData.name,
             priceUsd = formatDecimalUseCase.invoke(cryptoData.priceUsd),
             changePercent24Hr = cryptoData.changePercent24Hr.roundChangePercent24HrToTwoDecimalPlaces(),
-            supply = formatDecimalUseCase.invoke(cryptoData.supply)
+            supply = formatDecimalUseCase.invoke(cryptoData.supply),
+            marketCapUsd = formatDecimalUseCase.invoke(cryptoData.marketCapUsd),
+            volumeUsd24Hr = formatDecimalUseCase.invoke(cryptoData.volumeUsd24Hr),
         )
     }
 }

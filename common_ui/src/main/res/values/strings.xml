@@ -4,5 +4,12 @@
     <string name="crypto_currency_list_screen_title">COINS</string>
     <string name="crypto_currency_details_screen_title">DETAILS</string>
     <string name="no_internet">No Internet Connection</string>
-    <string name="crypto_currency_list_empty">No Crypto Currency Info</string>
+    <string name="crypto_currency_list_empty">No Crypto Currency Info Available</string>
+    <string name="crypto_currency_list_error">Error in obtaining Crypto Currency Info - Please try again later</string>
+    <string name="crypto_currency_details_error">Error in obtaining Crypto Currency Details - Please try again later</string>
+    <string name="price_label">Price</string>
+    <string name="price_change_label_24_hour">Change (24hr)</string>
+    <string name="market_cap_label">Market Cap</string>
+    <string name="volume_label_24_hour">Volume (24hr)</string>
+    <string name="supply_label">Supply</string>
 </resources>

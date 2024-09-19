@@ -1,6 +1,7 @@
 package com.client.android.feature_crypto_currency_list
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -25,7 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.client.android.common_ui.DisplayFullScreenError
+import com.client.android.common_ui.Blue30
+import com.client.android.common_ui.Green
+import com.client.android.common_ui.GreyishBlack
+import com.client.android.common_ui.Lavender
+import com.client.android.common_ui.Red
+import com.client.android.common_ui.components.DisplayFullScreenError
+import com.client.android.common_ui.White40
 import com.client.android.common_ui.components.AppProgressBar
 import com.client.android.common_ui.components.AppText
 import com.client.android.common_ui.typography
@@ -56,10 +64,10 @@ fun CryptoCurrencyListScreen(
         error = viewState.value.error,
         topCryptoCurrencyInfoList = viewState.value.cryptoCurrenciesModel?.data
             ?: emptyList(),
-        onItemClicked = { item ->
+        onItemClicked = { id ->
             navHostController.navigate(
                 AppRouter.CryptoCurrencyDetailsScreen.navigateToCryptoCurrencyDetailsScreen(
-                    item.id
+                    id
                 )
             )
         }
@@ -72,17 +80,23 @@ private fun CryptoCurrencyList(
     loading: Boolean,
     error: ErrorType?,
     topCryptoCurrencyInfoList: List<CryptoCurrencyModel>,
-    onItemClicked: (CryptoCurrencyModel) -> Unit,
+    onItemClicked: (String) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(title = {
-                AppText(
-                    message = stringResource(id = com.client.android.common_ui.R.string.crypto_currency_list_screen_title),
-                    style = typography.headlineLarge
-                )
-            })
-        }
+            TopAppBar(
+                title = {
+                    AppText(
+                        message = stringResource(id = com.client.android.common_ui.R.string.crypto_currency_list_screen_title),
+                        style = typography.headlineLarge
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Blue30
+                ),
+            )
+        },
+        containerColor = Lavender,
     ) { paddingValues ->
         if (error != null) {
             DisplayFullScreenError(errorType = error)
@@ -97,11 +111,12 @@ private fun CryptoCurrencyList(
                 ) {
                     items(topCryptoCurrencyInfoList, key = { item -> item.id }) { item ->
                         CryptoCurrencyListItem(
+                            id = item.id,
                             name = item.name,
                             symbol = item.symbol,
                             price = "$" + item.priceUsd,
                             changePercent = item.changePercent24Hr + "%",
-                            changeColor = if (item.changePercent24Hr.startsWith("-")) Color.Red else Color.Green,
+                            changeColor = if (item.changePercent24Hr.startsWith("-")) Red else Green,
                             onItemClicked = onItemClicked
                         )
                     }
@@ -113,19 +128,23 @@ private fun CryptoCurrencyList(
 
 @Composable
 private fun CryptoCurrencyListItem(
+    id: String,
     name: String,
     symbol: String,
     price: String,
     changePercent: String,
     changeColor: Color,
-    onItemClicked: (CryptoCurrencyModel) -> Unit,
+    onItemClicked: (String) -> Unit,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .background(Color(0xFFE8EAF6), RoundedCornerShape(8.dp))
-            .padding(16.dp),
+            .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
+            .background(White40, RoundedCornerShape(8.dp))
+            .padding(16.dp)
+            .clickable {
+                onItemClicked(id)
+            },
         verticalAlignment = Alignment.CenterVertically,
     ) {
 
@@ -135,12 +154,13 @@ private fun CryptoCurrencyListItem(
         Column(modifier = Modifier.weight(1f)) {
             AppText(
                 message = name,
-                style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                color = GreyishBlack
             )
             AppText(
                 message = symbol,
                 style = typography.bodyMedium,
-                color = Color.Gray
+                color = GreyishBlack
             )
         }
 
@@ -148,7 +168,8 @@ private fun CryptoCurrencyListItem(
         Column(horizontalAlignment = Alignment.End) {
             AppText(
                 message = price,
-                style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                color = GreyishBlack
             )
             AppText(
                 message = changePercent,

@@ -6,7 +6,7 @@ import com.client.android.core_crypto_currency_data.entity.CryptoCurrenciesDataE
 import com.client.android.core_crypto_currency_data.entity.CryptoCurrencyDataEntity
 import com.google.gson.Gson
 
-class Converters {
+internal class Converters {
     @TypeConverter
     fun fromCryptoCurrencyInfoDataEntity(cryptoCurrencyDataEntity: CryptoCurrencyDataEntity?): String? {
         if (cryptoCurrencyDataEntity == null) {
