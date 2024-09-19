@@ -2,21 +2,21 @@ package com.client.android.core_crypto_currency_domain.usecase
 
 import com.client.android.core_base.AppResult
 import com.client.android.core_base.ErrorType
-import com.client.android.core_crypto_currency_data.CryptoCurrencyInfoRepository
-import com.client.android.core_crypto_currency_data.entity.CryptoCurrencyInfoDataEntity
-import com.client.android.core_crypto_currency_domain.model.CryptoCurrenciesInfoDataModel
-import com.client.android.core_crypto_currency_domain.model.InfoDataModel
+import com.client.android.core_crypto_currency_data.CryptoCurrencyDataRepository
+import com.client.android.core_crypto_currency_data.entity.CryptoCurrenciesDataEntity
+import com.client.android.core_crypto_currency_domain.model.CryptoCurrenciesModel
+import com.client.android.core_crypto_currency_domain.model.CryptoCurrencyModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.Locale
 import javax.inject.Inject
 
-class GetTopCryptoCurrenciesInfoUseCase @Inject constructor(
-    private val cryptoCurrencyInfoRepository: CryptoCurrencyInfoRepository,
+class GetTopCryptoCurrenciesUseCase @Inject constructor(
+    private val cryptoCurrencyDataRepository: CryptoCurrencyDataRepository,
     private val formatDecimalUseCase: FormatDecimalUseCase
 ) {
-    suspend operator fun invoke(): Flow<AppResult<CryptoCurrenciesInfoDataModel, ErrorType>> {
-        return cryptoCurrencyInfoRepository.getTopCryptoCurrencies().map { result ->
+    suspend operator fun invoke(): Flow<AppResult<CryptoCurrenciesModel, ErrorType>> {
+        return cryptoCurrencyDataRepository.getTopCryptoCurrencies().map { result ->
             when (result) {
                 is AppResult.Success -> {
                     AppResult.Success(
@@ -32,16 +32,17 @@ class GetTopCryptoCurrenciesInfoUseCase @Inject constructor(
     }
 
     private fun mapCryptoCurrenciesInfoDataEntityToCryptoCurrenciesInfoDataModel(
-        cryptoCurrencyInfoDataEntity: CryptoCurrencyInfoDataEntity
-    ): CryptoCurrenciesInfoDataModel {
-        return CryptoCurrenciesInfoDataModel(
-            data = cryptoCurrencyInfoDataEntity.data.map { data ->
-                InfoDataModel(
+        cryptoCurrenciesDataEntity: CryptoCurrenciesDataEntity
+    ): CryptoCurrenciesModel {
+        return CryptoCurrenciesModel(
+            data = cryptoCurrenciesDataEntity.data.map { data ->
+                CryptoCurrencyModel(
                     id = data.id,
                     symbol = data.symbol,
                     name = data.name,
                     priceUsd = formatDecimalUseCase.invoke(data.priceUsd),
-                    changePercent24Hr = roundChangePercent24HrToTwoDecimalPlaces(data.changePercent24Hr)
+                    changePercent24Hr = roundChangePercent24HrToTwoDecimalPlaces(data.changePercent24Hr),
+                    supply = data.supply
                 )
             }
         )

@@ -3,7 +3,7 @@ package com.client.android.feature_crypto_currency_list
 import androidx.lifecycle.viewModelScope
 import com.client.android.core_base.AppResult
 import com.client.android.core_base.ErrorType
-import com.client.android.core_crypto_currency_domain.usecase.GetTopCryptoCurrenciesInfoUseCase
+import com.client.android.core_crypto_currency_domain.usecase.GetTopCryptoCurrenciesUseCase
 import com.client.android.feature_base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCurrenciesInfoUseCase: GetTopCryptoCurrenciesInfoUseCase) :
+class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCurrenciesUseCase: GetTopCryptoCurrenciesUseCase) :
     BaseViewModel<CryptoCurrencyListViewState, CryptoCurrencyListViewEvent, CryptoCurrencyListViewEffect>(
         initialState = CryptoCurrencyListViewState(loading = true),
         reducer = CryptoCurrencyListReducer()
@@ -20,7 +20,7 @@ class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCu
 
     init {
         viewModelScope.launch {
-            getTopCryptoCurrenciesInfoUseCase.invoke().onStart {
+            getTopCryptoCurrenciesUseCase.invoke().onStart {
                 sendEvent(CryptoCurrencyListViewEvent.GetTopCryptoCurrencyList)
             }.catch {
                 sendEvent(CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetchError(error = ErrorType.UNKNOWN_ERROR))
@@ -30,7 +30,7 @@ class CryptoCurrencyListViewModel @Inject constructor(private val getTopCryptoCu
                         if (it.data.data.isNotEmpty()) {
                             sendEvent(
                                 CryptoCurrencyListViewEvent.OnTopCryptoCurrencyListFetched(
-                                    cryptoCurrenciesInfoDataModel = it.data
+                                    cryptoCurrenciesModel = it.data
                                 )
                             )
                         } else {

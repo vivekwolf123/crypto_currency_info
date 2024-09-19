@@ -1,17 +1,14 @@
 package com.client.android.core_crypto_currency_data.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CryptoCurrencyInfoDataEntity(
-
-    @SerializedName("data")
-    val data: List<Data>
-)
-
-@Serializable
-data class Data(
+@Entity(tableName = "crypto_currency_info_data_table")
+data class CryptoCurrencyDataEntity(
+    @PrimaryKey
     @SerializedName("id")
     val id: String,
 
@@ -26,4 +23,7 @@ data class Data(
 
     @SerializedName("changePercent24Hr")
     val changePercent24Hr: String,
+
+    @SerializedName("supply")
+    val supply: String,
 )

@@ -1,10 +1,13 @@
 package com.client.android.core_crypto_currency_data.di
 
 import android.content.Context
+import androidx.room.Room
 import com.client.android.core_crypto_currency_data.BuildConfig
-import com.client.android.core_crypto_currency_data.CryptoCurrencyInfoRepository
-import com.client.android.core_crypto_currency_data.api.CryptoCurrencyInfoApi
-import com.client.android.core_crypto_currency_data.repository.CryptoCurrencyInfoRepositoryImpl
+import com.client.android.core_crypto_currency_data.CryptoCurrencyDataRepository
+import com.client.android.core_crypto_currency_data.api.CryptoCurrencyDataApi
+import com.client.android.core_crypto_currency_data.cache.CryptoCurrencyDataDao
+import com.client.android.core_crypto_currency_data.cache.CryptoCurrencyDatabase
+import com.client.android.core_crypto_currency_data.repository.CryptoCurrencyDataRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,21 +25,37 @@ object CryptoCurrencyDataDiModule {
 
     private const val TIMEOUT_IN_SECONDS = 30L
 
-    @Singleton
     @Provides
-    fun provideCryptoCurrencyInfoApi(retrofit: Retrofit) =
-        retrofit.create(CryptoCurrencyInfoApi::class.java)
+    @Singleton
+    fun provideCryptoCurrencyInfoDao(cryptoCurrencyDatabase: CryptoCurrencyDatabase) =
+        cryptoCurrencyDatabase.cryptoCurrencyDataDao()
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): CryptoCurrencyDatabase {
+        return Room.databaseBuilder(
+            appContext, CryptoCurrencyDatabase::class.java, "crypto_currency_info_database"
+        ).build()
+    }
+
 
     @Singleton
     @Provides
-    fun provideCryptoCurrencyInfoRepository(
+    fun provideCryptoCurrencyDataApi(retrofit: Retrofit) =
+        retrofit.create(CryptoCurrencyDataApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideCryptoCurrencyDataRepository(
         @ApplicationContext context: Context,
-        cryptoCurrencyInfoApi: CryptoCurrencyInfoApi,
-    ): CryptoCurrencyInfoRepository = CryptoCurrencyInfoRepositoryImpl(context, cryptoCurrencyInfoApi)
+        cryptoCurrencyDataApi: CryptoCurrencyDataApi,
+        cryptoCurrencyDataDao: CryptoCurrencyDataDao
+    ): CryptoCurrencyDataRepository =
+        CryptoCurrencyDataRepositoryImpl(context, cryptoCurrencyDataApi, cryptoCurrencyDataDao)
 
     @Singleton
     @Provides
-    fun provideCryptoCurrencyInfoApiRetrofit(): Retrofit {
+    fun provideCryptoCurrencyDataApiRetrofit(): Retrofit {
         return Retrofit.Builder()
             .client(buildOkHttpClient())
             .baseUrl(BuildConfig.CRYPTO_CURRENCY_INFO_API)

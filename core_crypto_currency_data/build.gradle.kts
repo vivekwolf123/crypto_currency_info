@@ -27,6 +27,12 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     api(libs.retrofit)
 
+    implementation(libs.gson)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
     implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":core_base"))

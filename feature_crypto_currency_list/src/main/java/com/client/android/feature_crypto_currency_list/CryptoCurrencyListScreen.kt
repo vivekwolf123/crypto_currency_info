@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -30,7 +29,7 @@ import com.client.android.common_ui.components.AppProgressBar
 import com.client.android.common_ui.components.AppText
 import com.client.android.common_ui.typography
 import com.client.android.core_base.ErrorType
-import com.client.android.core_crypto_currency_domain.model.InfoDataModel
+import com.client.android.core_crypto_currency_domain.model.CryptoCurrencyInfoDataModel
 
 @Composable
 fun CryptoCurrencyListScreen(
@@ -53,7 +52,7 @@ fun CryptoCurrencyListScreen(
     CryptoCurrencyList(
         loading = viewState.value.loading,
         error = viewState.value.error,
-        topCryptoCurrencyInfoList = viewState.value.cryptoCurrenciesInfoDataModel?.data
+        topCryptoCurrencyInfoList = viewState.value.cryptoCurrenciesModel?.data
             ?: emptyList(),
         onItemClicked = { item ->
             // Handle item click here, you can use navHostController to navigate
@@ -66,8 +65,8 @@ fun CryptoCurrencyListScreen(
 private fun CryptoCurrencyList(
     loading: Boolean,
     error: ErrorType?,
-    topCryptoCurrencyInfoList: List<InfoDataModel>,
-    onItemClicked: (InfoDataModel) -> Unit,
+    topCryptoCurrencyInfoList: List<CryptoCurrencyInfoDataModel>,
+    onItemClicked: (CryptoCurrencyInfoDataModel) -> Unit,
 ) {
     Scaffold(
         topBar = {

@@ -31,4 +31,5 @@ dependencies {
     implementation(project(":core_base"))
     implementation(project(":feature_base"))
     implementation(project(":feature_crypto_currency_list"))
+    implementation(project(":feature_crypto_currency_details"))
 }

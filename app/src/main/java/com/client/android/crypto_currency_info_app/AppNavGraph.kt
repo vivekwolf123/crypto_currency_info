@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.client.android.feature_crypto_currency_details.CryptoCurrencyDetailsScreen
 import com.client.android.feature_crypto_currency_list.CryptoCurrencyListScreen
 import com.client.android.navigation.AppRouter
 
@@ -22,7 +23,7 @@ fun AppNavGraph(navHostController: NavHostController) {
             route = AppRouter.CryptoCurrencyDetailsScreen.route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) {
-            //CryptoCurrencyDetailsScreen(navHostController)
+            CryptoCurrencyDetailsScreen()
         }
     }
 }

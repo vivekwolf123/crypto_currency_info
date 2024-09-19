@@ -8,12 +8,12 @@ retrofit = "2.11.0"
 serialization = "1.7.1"
 activityCompose = "1.9.2"
 kspPlugin = "2.0.0-1.0.22"
-compose-ui = "1.7.1"
+compose-ui = "1.7.2"
 material = "1.12.0"
-lifecycle-runtime-compose = "2.8.5"
+lifecycle-runtime-compose = "2.8.6"
 junit = "4.13.2"
 hilt-navigtion-compose = "1.2.0"
-navigationCompose = "2.8.0"
+navigationCompose = "2.8.1"
 mockito-core = "5.12.0"
 mockito-kotlin = "5.4.0"
 kotlinx-coroutines-test = "1.8.1"
@@ -23,10 +23,8 @@ coil-svg = "2.7.0"
 core-testing = "2.2.0"
 turbine = "1.1.0"
 mockk = "1.13.12"
-coreKtx = "1.13.1"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
-appcompat = "1.7.0"
+room = "2.6.1"
+gson = "2.11.0"
 
 [libraries]
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
@@ -51,10 +49,10 @@ coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil-svg" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "core-testing" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
