@@ -93,7 +93,7 @@ private fun CryptoCurrencyList(
                 title = {
                     AppText(
                         message = stringResource(id = com.client.android.common_ui.R.string.crypto_currency_list_screen_title),
-                        style = typography.headlineLarge
+                        style = typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

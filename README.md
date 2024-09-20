@@ -66,3 +66,25 @@ Contains error type enum for handling the error codes and also extension class
 - JUnit 5
 - Mockito/Mockk
 - Material3
+
+## Getting Started
+
+### Clone the Repository
+
+Clone this repository using Git:
+
+```bash
+git clone https://github.com/vivekwolf123/crypto_currency_info.git
+```
+
+### How to build and run the project
+
+To build and run this project, you need the following tools and libraries:
+
+- **Android Studio**
+- **Gradle**: Included in the project, no additional setup needed.
+- **Minimum SDK**: 26
+- **Target SDK**: 34
+- **Kotlin**:
+- **Java Version**: 11
+- **Android Emulator or Physical Device**:

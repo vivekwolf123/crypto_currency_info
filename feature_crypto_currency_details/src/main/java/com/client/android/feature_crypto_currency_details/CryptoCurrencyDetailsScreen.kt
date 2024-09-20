@@ -30,10 +30,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.client.android.common_ui.Blue
 import com.client.android.common_ui.Blue30
-import com.client.android.common_ui.Green
 import com.client.android.common_ui.GreyishBlack
 import com.client.android.common_ui.Lavender
-import com.client.android.common_ui.Red
 import com.client.android.common_ui.White40
 import com.client.android.common_ui.components.DisplayFullScreenError
 import com.client.android.common_ui.components.AppProgressBar
@@ -81,9 +79,9 @@ private fun CryptoCurrencyDetailsInfo(
         topBar = {
             TopAppBar(title = {
                 AppText(
-                    message = cryptoCurrencyDetails?.name
+                    message = cryptoCurrencyDetails?.name?.uppercase()
                         ?: stringResource(id = com.client.android.common_ui.R.string.crypto_currency_details_screen_title),
-                    style = typography.headlineLarge
+                    style = typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
                 )
             },
                 colors = TopAppBarDefaults.topAppBarColors(
