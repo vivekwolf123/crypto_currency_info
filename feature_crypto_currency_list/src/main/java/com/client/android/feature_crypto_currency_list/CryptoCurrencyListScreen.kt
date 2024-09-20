@@ -39,6 +39,7 @@ import com.client.android.common_ui.components.DisplayFullScreenError
 import com.client.android.common_ui.White40
 import com.client.android.common_ui.components.AppProgressBar
 import com.client.android.common_ui.components.AppText
+import com.client.android.common_ui.getChange24HourPercentColor
 import com.client.android.common_ui.getCryptoCurrencyImage
 import com.client.android.common_ui.typography
 import com.client.android.common_utils.ErrorType
@@ -120,7 +121,7 @@ private fun CryptoCurrencyList(
                             symbol = item.symbol,
                             price = "$" + item.priceUsd,
                             changePercent = item.changePercent24Hr + "%",
-                            changeColor = if (item.changePercent24Hr.startsWith("-")) Red else Green,
+                            changeColor = getChange24HourPercentColor(item.changePercent24Hr),
                             onItemClicked = onItemClicked
                         )
                     }

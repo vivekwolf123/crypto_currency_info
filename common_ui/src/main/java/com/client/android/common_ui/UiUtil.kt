@@ -1,5 +1,7 @@
 package com.client.android.common_ui
 
+import androidx.compose.ui.graphics.Color
+
 fun getCryptoCurrencyImage(id: String): Int {
     return when (id) {
         "bitcoin" -> R.drawable.ic_bitcoin
@@ -12,4 +14,10 @@ fun getCryptoCurrencyImage(id: String): Int {
         "cardano" -> R.drawable.ic_cardano
         else -> R.drawable.ic_default_crypto_currency
     }
+}
+
+fun getChange24HourPercentColor(changePercent24Hr: String?): Color {
+    return if ((changePercent24Hr?.toDoubleOrNull()
+            ?: 0.0) >= 0
+    ) Green else Red
 }

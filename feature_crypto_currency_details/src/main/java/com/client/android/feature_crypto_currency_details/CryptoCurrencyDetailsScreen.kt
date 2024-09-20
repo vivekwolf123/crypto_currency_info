@@ -38,6 +38,7 @@ import com.client.android.common_ui.White40
 import com.client.android.common_ui.components.DisplayFullScreenError
 import com.client.android.common_ui.components.AppProgressBar
 import com.client.android.common_ui.components.AppText
+import com.client.android.common_ui.getChange24HourPercentColor
 import com.client.android.common_ui.typography
 import com.client.android.common_utils.ErrorType
 import com.client.android.core_crypto_currency_domain.model.CryptoCurrencyModel
@@ -146,9 +147,7 @@ private fun CryptoCurrencyDetailsInfo(
                         AppText(
                             message = cryptoCurrencyDetails?.changePercent24Hr + "%",
                             style = typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                            color = if ((cryptoCurrencyDetails?.changePercent24Hr?.toDoubleOrNull()
-                                    ?: 0.0) >= 0
-                            ) Green else Red
+                            color =  getChange24HourPercentColor(cryptoCurrencyDetails?.changePercent24Hr)
                         )
                     }
 
