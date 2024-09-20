@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
+import java.util.Locale
 
 class GetTopCryptoCurrenciesUseCaseTest {
 
@@ -36,6 +37,7 @@ class GetTopCryptoCurrenciesUseCaseTest {
             cryptoCurrencyDataRepository,
             formatDecimalUseCase
         )
+        Locale.setDefault(Locale.US)
     }
 
     @Test
@@ -76,7 +78,7 @@ class GetTopCryptoCurrenciesUseCaseTest {
                         symbol = "BTC",
                         name = "Bitcoin",
                         priceUsd = "50K",
-                        changePercent24Hr = "5,47",
+                        changePercent24Hr = "5.47",
                         supply = "18000000",
                         marketCapUsd = "900M",
                         volumeUsd24Hr = "10M"
