@@ -112,7 +112,7 @@ private fun CryptoCurrencyDetailsInfo(
                         .padding(16.dp)
                         .background(
                             White40,
-                            RoundedCornerShape(12.dp)
+                            RoundedCornerShape(16.dp)
                         )
                         .padding(16.dp)
                 ) {

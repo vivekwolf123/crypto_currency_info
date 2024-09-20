@@ -1,5 +1,6 @@
 package com.client.android.feature_crypto_currency_list
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,6 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,6 +39,7 @@ import com.client.android.common_ui.components.DisplayFullScreenError
 import com.client.android.common_ui.White40
 import com.client.android.common_ui.components.AppProgressBar
 import com.client.android.common_ui.components.AppText
+import com.client.android.common_ui.getCryptoCurrencyImage
 import com.client.android.common_ui.typography
 import com.client.android.common_utils.ErrorType
 import com.client.android.core_crypto_currency_domain.model.CryptoCurrencyModel
@@ -140,13 +144,19 @@ private fun CryptoCurrencyListItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
-            .background(White40, RoundedCornerShape(8.dp))
+            .background(White40, RoundedCornerShape(16.dp))
             .padding(16.dp)
             .clickable {
                 onItemClicked(id)
             },
         verticalAlignment = Alignment.CenterVertically,
     ) {
+
+        Image(
+            painter = painterResource(id = getCryptoCurrencyImage(id)),
+            contentDescription = "Crypto Currency Image",
+            modifier = Modifier.size(56.dp)
+        )
 
         Spacer(modifier = Modifier.width(16.dp))
 
