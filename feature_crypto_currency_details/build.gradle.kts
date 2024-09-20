@@ -14,6 +14,9 @@ android {
     buildFeatures {
         compose = true
     }
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {
@@ -35,6 +38,5 @@ dependencies {
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.core.testing)
-    testImplementation(libs.turbine)
     testImplementation(libs.mockk)
 }

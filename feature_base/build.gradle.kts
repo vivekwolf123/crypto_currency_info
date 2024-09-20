@@ -9,6 +9,9 @@ android {
     buildFeatures {
         compose = true
     }
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {

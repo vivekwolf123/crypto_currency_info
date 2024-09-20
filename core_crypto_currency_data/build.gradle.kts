@@ -17,6 +17,9 @@ android {
     buildFeatures {
         buildConfig = true
     }
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {

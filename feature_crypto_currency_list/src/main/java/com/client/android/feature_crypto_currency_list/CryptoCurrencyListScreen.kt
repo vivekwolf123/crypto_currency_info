@@ -145,11 +145,9 @@ private fun CryptoCurrencyListItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
+            .clickable { onItemClicked(id) }
             .background(White40, RoundedCornerShape(16.dp))
-            .padding(16.dp)
-            .clickable {
-                onItemClicked(id)
-            },
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
 
@@ -184,9 +182,10 @@ private fun CryptoCurrencyListItem(
             )
             AppText(
                 message = changePercent,
-                style = typography.bodyMedium,
+                style = typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                 color = changeColor
             )
         }
     }
 }
+

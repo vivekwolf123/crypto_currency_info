@@ -12,6 +12,7 @@ in several other modules.
 
 ### Modules
 1) Feature Module
+
 View - Contains compose code
 ViewModel - Responsible for managing the state and business logic. Sends event which the reducer will
             reduce into state and effect which is observed by the view
@@ -21,18 +22,38 @@ ViewEvent - Handles various events triggered by the view model
 Reducer - Takes state and event and reduces it into state and effect
 
 2) Domain Module
+
 Contains Model class and a use case which is responsible for performing only one task. The use case
 maps the entity to the model and provides it to the view model. 
 
 3) Data Module
+
 - Contains the API interface, Room database dao interface
 - Entity that is provided by the API or the Room database
 - Repository that decides if it needs to fetch data either from the API or the Room database
 - The repository provides the entity to the domain layer
 
 4) Common UI Module
+
 Contains UI components, resources such as drawables, strings, reusable UI code, color, theme 
 and typography
+
+5) Navigation Module
+
+Contains the routes for the screens
+
+6) Feature base Module
+
+Contains BaseViewModel and Reducer
+
+7) Core base Module
+
+Contains Internet util and AppResult class which is a generic implementation for success and 
+error case used by domain and data modules
+
+8) Common utils Module
+
+Contains error type enum for handling the error codes and also extension class
 
 ### Tech Stack
 - Android Studio

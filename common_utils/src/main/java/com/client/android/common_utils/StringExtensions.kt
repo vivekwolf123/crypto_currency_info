@@ -4,7 +4,7 @@ import java.util.Locale
 
 fun String.roundChangePercent24HrToTwoDecimalPlaces(): String {
     return try {
-        String.format(Locale.getDefault(), "%.2f", this.toDoubleOrNull())
+        String.format(Locale.getDefault(), "%.2f", this.replace(",", "").toDoubleOrNull())
     } catch (_: Exception) {
         this
     }
